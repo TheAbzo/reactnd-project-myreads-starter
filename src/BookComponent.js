@@ -8,23 +8,31 @@ class BookComponent extends Component {
     backgroundImageURI: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     author: PropTypes.array.isRequired,
+    shelf:  PropTypes.string.isRequired,
+    updateParent: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired,
   }
-  state = {
-    bookShelfState: ''
+
+  
+//  handleChange = e => this.setState({ value: e.target.value });
+  handleChange(event){
+        const myObject = {
+          id: this.props.id
+      };
+      this.props.updateParent(myObject,event.target.value)
   }
 
   render() {
-    const { backgroundImageURI,title,author } = this.props
+    const { backgroundImageURI,title,author,shelf } = this.props
 
-    console.log(backgroundImageURI)
+    // console.log(backgroundImageURI)
 
     return (
     <div className="book">
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${backgroundImageURI})` }}></div>
           <div className="book-shelf-changer">
-            <select>
-                {/* each value of these will  change the state */}
+            <select value = {shelf} onChange={this.handleChange.bind(this)}>
               <option value="move" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>

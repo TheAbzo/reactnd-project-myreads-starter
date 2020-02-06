@@ -14,18 +14,25 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     books: [],
+    updateApp: {},
     showSearchPage: false
   }
 
   componentDidMount() {
     BooksAPI.getAll()
-      .then((books) => { //success message, has property called shelf
-        this.setState(() => ({ books }))
+      .then((booksResponse) => { //success message, has property called shelf
+        this.setState(() => ({  books: booksResponse }))
       })}
 
+      // function in parent that will make ajax request and change it's state
+  updateApp(book,shelf){
+    BooksAPI.update(book,shelf)
+    .then((booksResponse) => { //success message, has property called shelf
+      this.setState(({  updateApp: booksResponse }))
+    })}
       
   render() {
-      console.log(this.state.books)
+      // console.log(this.state.books)
 
     return (
       <div className="app">
@@ -62,16 +69,19 @@ class BooksApp extends React.Component {
               bookShelfTitle = "Currently Reading"
               books = {this.state.books}
               shelfType = "currentlyReading"
+              updateGrandParent = {this.updateApp.bind(this)}
               />
               <ShelfComponent
               bookShelfTitle = "Want to Read"
               books ={this.state.books}
               shelfType ="wantToRead"
+              updateGrandParent = {this.updateApp.bind(this)}
               />
               <ShelfComponent
                 bookShelfTitle = "Read"
                 books = {this.state.books}
                 shelfType = "read" 
+                updateGrandParent = {this.updateApp.bind(this)}
               />
               </div>
             </div>

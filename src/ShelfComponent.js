@@ -10,11 +10,17 @@ class ShelfComponent extends Component {
     bookShelfTitle: PropTypes.string.isRequired,
     shelfType: PropTypes.string.isRequired,
     books: PropTypes.array.isRequired,
+    updateGrandParent:PropTypes.func.isRequired,
   }
 //   state = {
 //     bookShelfState: ''
 //   }
 
+updateParent(book,shelf){
+    this.props.updateGrandParent(book,shelf)
+}
+
+//fn that cha
   render() {
     const { bookShelfTitle,shelfType,books } = this.props
  
@@ -25,7 +31,8 @@ class ShelfComponent extends Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
 
-          {books.filter((category) =>  { console.log (category.shelf) 
+          {books.filter((category) =>  {
+            //   / console.log (category.shelf) 
           return category.shelf === shelfType})
             .map((book) => (
              <li key={book.id}>
@@ -33,6 +40,10 @@ class ShelfComponent extends Component {
                 title = {book.title}
                 author = {book.authors}
                 backgroundImageURI = {book.imageLinks.smallThumbnail}
+                shelf = {shelfType}
+                updateParent ={this.updateParent.bind(this)}
+                id = {book.id}
+               
               />     
              </li> 
           ))}
