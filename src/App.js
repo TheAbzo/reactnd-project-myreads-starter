@@ -28,7 +28,10 @@ class BooksApp extends React.Component {
   updateApp(book,shelf){
     BooksAPI.update(book,shelf)
     .then((booksResponse) => { //success message, has property called shelf
-      this.setState(({  updateApp: booksResponse }))
+      BooksAPI.getAll()
+      .then((booksResponse) => { //success message, has property called shelf
+        this.setState(() => ({  books: booksResponse }))
+      })
     })}
       
   render() {
