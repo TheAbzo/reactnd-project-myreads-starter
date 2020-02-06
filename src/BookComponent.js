@@ -1,32 +1,30 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 
 
 class BookComponent extends Component {
   static propTypes = {
     backgroundImageURI: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    author: PropTypes.array.isRequired,
+    author: PropTypes.array,
     shelf:  PropTypes.string.isRequired,
     updateParent: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
   }
 
-  
-//  handleChange = e => this.setState({ value: e.target.value });
-  handleChange(event){
+
+    handleChange(event){
         const myObject = {
           id: this.props.id
       };
       this.props.updateParent(myObject,event.target.value)
   }
 
+
   render() {
     const { backgroundImageURI,title,author,shelf } = this.props
 
-    // console.log(backgroundImageURI)
-
+    
     return (
     <div className="book">
         <div className="book-top">

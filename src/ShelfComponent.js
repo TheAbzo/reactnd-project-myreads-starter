@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 import BookComponent from './BookComponent'
-
 
 
 class ShelfComponent extends Component {
@@ -12,19 +10,16 @@ class ShelfComponent extends Component {
     books: PropTypes.array.isRequired,
     updateGrandParent:PropTypes.func.isRequired,
   }
-//   state = {
-//     bookShelfState: ''
-//   }
+
 
 updateParent(book,shelf){
     this.props.updateGrandParent(book,shelf)
 }
 
-//fn that cha
+
   render() {
     const { bookShelfTitle,shelfType,books } = this.props
  
-
     return (
         <div className="bookshelf">
         <h2 className="bookshelf-title">{bookShelfTitle}</h2>
@@ -32,7 +27,6 @@ updateParent(book,shelf){
           <ol className="books-grid">
 
           {books.filter((category) =>  {
-            //   / console.log (category.shelf) 
           return category.shelf === shelfType})
             .map((book) => (
              <li key={book.id}>
@@ -42,8 +36,7 @@ updateParent(book,shelf){
                 backgroundImageURI = {book.imageLinks.smallThumbnail}
                 shelf = {shelfType}
                 updateParent ={this.updateParent.bind(this)}
-                id = {book.id}
-               
+                id = {book.id}   
               />     
              </li> 
           ))}
