@@ -13,18 +13,17 @@ class BookComponent extends Component {
   }
 
 
-    handleChange(event){
-        const myObject = {
-          id: this.props.id
-      };
-      this.props.updateParent(myObject,event.target.value)
+  handleChange(event){
+      const myObject = {
+        id: this.props.id
+    };
+    this.props.updateParent(myObject,event.target.value)
   }
 
 
   render() {
     const { backgroundImageURI,title,author,shelf } = this.props
 
-    
     return (
     <div className="book">
         <div className="book-top">
