@@ -7,9 +7,12 @@ import BookComponent from './BookComponent'
 
 class SearchComponent extends Component {
   static propTypes = {
-    // bookShelfTitle: PropTypes.string.isRequired,
-    
+    booksOnShelves: PropTypes.array.isRequired,
+    updateGrandParent:PropTypes.func.isRequired,
+
   }
+
+
   state = {
     query: '',
     books:[],
@@ -39,14 +42,27 @@ class SearchComponent extends Component {
 
 
   updateParent(book,shelf){
-    // this.props.updateGrandParent(book,shelf)
+      console.log(book,"Boooook",shelf,"shelfff")
+        this.props.updateGrandParent(book,shelf)
 }
 
 
+  bookExists(bookObj) {
+    for( let i = 0; i < this.props.booksOnShelves.length; i++){
+        if(bookObj.title === this.props.booksOnShelves[i].title )
+        return this.props.booksOnShelves[i].shelf
+    }
+    return "none"
+  }
+
+
+  
+
   render() {
+    const { booksOnShelves } = this.props
     const { query,books } = this.state
 
-    console.log(books)
+    // console.log(books)
     return (
         <div className="search-books">
             <div className="search-books-bar">
@@ -66,7 +82,9 @@ class SearchComponent extends Component {
                                title = {book.title}
                                author =  {book.hasOwnProperty('authors')? book.authors:[]}
                                backgroundImageURI = {book.hasOwnProperty('imageLinks')? book.imageLinks.thumbnail:""}
-                               shelf = "none"
+                               shelf = {
+                                this.bookExists(book)
+                                }
                                updateParent ={this.updateParent.bind(this)}
                                id = {book.id}   
                              />     
